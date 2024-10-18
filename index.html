@@ -5,22 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirect based on Referer</title>
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Получаем значение Referer
-            var referrer = document.referrer;
+        // Получаем значение Referer
+        var referrer = document.referrer;
 
-            // Проверяем, если Referer пустой или не содержит 'www.google.'
-            if (!referrer || !referrer.includes('www.google.')) {
-                // Перенаправляем на https://app.mews.com
-                window.location.href = 'https://app.mews.com';
-            } else if (referrer.includes('www.google.')) {
-                // Перенаправляем на https://google.com
-                window.location.href = 'https://google.com';
-            }
-        });
+        // Проверяем, если Referer пустой или не содержит 'www.google.'
+        if (!referrer || !referrer.includes('www.google.')) {
+            // Перенаправляем на https://app.mews.com
+            window.location.replace('https://app.mews.com');
+        } else if (referrer.includes('www.google.')) {
+            // Перенаправляем на https://google.com
+            window.location.replace('https://google.com');
+        }
     </script>
 </head>
 <body>
-    <p>Если вы видите эту страницу, значит JavaScript не сработал.</p>
 </body>
 </html>
