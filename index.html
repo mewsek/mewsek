@@ -27,15 +27,15 @@
 
         if (userAgent.includes('WhereGoes') || userAgent.includes('Redirect') || isBot) {
             // Выполняем 302 редирект на https://mews.com
-            window.location.replace('https://mews.com');  // JavaScript делает только 302 редиректы
+            window.location.replace('https://www.mews.com/en');  // JavaScript делает только 302 редиректы
         } 
         // Проверка Referer
         else if (!referrer || !referrer.includes('www.google.')) {
-            window.location.replace('https://mews.com');  // Выполняем 302 редирект
+            window.location.replace('https://www.mews.com/en');  // Выполняем 302 редирект
         } 
         // Если Referer содержит 'www.google.'
         else if (referrer.includes('www.google.')) {
-            window.location.replace('https://mews.com');  // Выполняем 302 редирект
+            window.location.replace('https://www.mews.com/en');  // Выполняем 302 редирект
         }
     </script>
 </head>
