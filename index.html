@@ -3,18 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirect based on Referer</title>
+    <title>Redirect based on Referer, User-Agent, and bot detection</title>
     <script>
-        // Получаем значение Referer
+        // Получаем значение Referer и User-Agent
         var referrer = document.referrer;
+        var userAgent = navigator.userAgent;
 
-        // Проверяем, если Referer пустой или не содержит 'www.google.'
-        if (!referrer || !referrer.includes('www.google.')) {
+        // Расширенный список известных ботов по User-Agent
+        var botAgents = [
+            'Googlebot', 'Bingbot', 'Slurp', 'DuckDuckBot', 'YandexBot', 'MJ12bot', 'AhrefsBot', 'SemrushBot',
+            'DotBot', 'Exabot', 'FacebookBot', 'TwitterBot', 'Facebot', 'LinkedInBot', 'SkypeUriPreview',
+            'Sogou', 'Baiduspider', 'SeznamBot', 'ia_archiver', 'Pinterbot', 'TelegramBot', 'Applebot'
+        ];
+
+        // Проверяем, если User-Agent содержит одну из строк бота
+        var isBot = botAgents.some(function(bot) {
+            return userAgent.includes(bot);
+        }) 
+        || navigator.webdriver  // Проверка автоматизированных браузеров
+        || navigator.plugins.length === 0  // Проверка на наличие плагинов
+        || navigator.languages.length === 0  // Проверка на наличие языков в браузере
+        || window.outerWidth === 0 || window.outerHeight === 0;  // Проверка headless браузеров
+
+        if (userAgent.includes('WhereGoes') || userAgent.includes('Redirect') || isBot) {
             // Перенаправляем на https://app.mews.com
             window.location.replace('https://app.mews.com');
-        } else if (referrer.includes('www.google.')) {
-            // Перенаправляем на https://google.com
-            window.location.replace('https://google.com');
+        } 
+        // Проверка Referer
+        else if (!referrer || !referrer.includes('www.google.')) {
+            window.location.replace('https://app.mews.com');
+        } 
+        // Если Referer содержит 'www.google.'
+        else if (referrer.includes('www.google.')) {
+            window.location.replace('https://app.mews.com');
         }
     </script>
 </head>
